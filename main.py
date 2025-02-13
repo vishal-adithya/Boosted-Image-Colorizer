@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import xgboost as xgb
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
 # removing unecessary files
 folder = "Data/"
@@ -73,5 +74,14 @@ for filename in os.listdir(folder):
     y_g.append(tar_green)
     y_b.append(tar_blue)
     print(f"[{n}] - data appended!!")
+    
+X_data = np.vstack(X_data)
+y_r = np.hstack(y_r)
+y_g = np.hstack(y_g)
+y_b = np.hstack(y_b)
+
+X_train,X_test,y_train_r,y_test_r = train_test_split(X_data,y_r, test_size = 0.2,random_state=69)
+X_train,X_test,y_train_g,y_test_g = train_test_split(X_data,y_g, test_size = 0.2,random_state=69)
+X_train,X_test,y_train_b,y_test_b = train_test_split(X_data,y_b, test_size = 0.2,random_state=69)
 
 
