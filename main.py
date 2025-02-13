@@ -22,12 +22,6 @@ plt.imshow(gray,cmap = "gray")
 plt.title("reference image GRAY")
 plt.show()
 
-def Preprocessing(img_path,img_size = (256,256)):
-    img = cv2.imread(img_path)
-    img = cv2.resize(img, img_size)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    return img,gray
-
 # feature extraction
 height,width = gray.shape
 x_grid,y_grid = np.meshgrid(np.linspace(0,1,width),np.linspace(0, 1,height))
@@ -35,11 +29,9 @@ gray_flat = gray.flatten()
 x_grid_flat = x_grid.flatten()
 y_grid_flat = y_grid.flatten()
 
-plt.imshow(x_grid)
-plt.title("X Grid")
-plt.show()
-plt.imshow(y_grid)
-plt.title("Y Grid")
+fig,ax = plt.subplots(ncols=2)
+ax[0].imshow(x_grid)
+ax[1].imshow(y_grid)
 plt.show()
 
 def Feature_Extraction(gray_img):
@@ -56,4 +48,30 @@ y_r = []
 y_g = []
 y_b = []
 X_data = []
+n = 0
+for filename in os.listdir(folder):
+    n+=1
+    if n>10000:
+        break
+    path = os.path.join(folder,filename)
+    img = cv2.imread(path)
+    if img is None:
+        continue
+    
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    print(f"[{n}] - image loaded")
+    
+    feature_stack = Feature_Extraction(gray_img=gray)
+    X_data.append(feature_stack)
+    print(f"[{n}] - features extracted!!")
+
+    tar_red = img[:,:,2].flatten()
+    tar_green = img[:,:,1].flatten() 
+    tar_blue = img[:,:,0].flatten()
+    
+    y_r.append(tar_red)
+    y_g.append(tar_green)
+    y_b.append(tar_blue)
+    print(f"[{n}] - data appended!!")
+
 
