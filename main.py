@@ -39,10 +39,10 @@ def Feature_Extraction(gray_img):
     height,width = gray_img.shape
     x,y = np.meshgrid(np.linspace(0, 1,width),np.linspace(0, 1,height))
     gray_img_flat = gray_img.flatten()
-    x_falt = x.flatten()
+    x_flat = x.flatten()
     y_flat = y.flatten()
     
-    feature_stack = np.column_stack((gray_img_flat,x_falt,y_flat))
+    feature_stack = np.column_stack((gray_img_flat,x_flat,y_flat))
     return feature_stack
 
 y_r = []
@@ -79,9 +79,3 @@ X_data = np.vstack(X_data)
 y_r = np.hstack(y_r)
 y_g = np.hstack(y_g)
 y_b = np.hstack(y_b)
-
-X_train,X_test,y_train_r,y_test_r = train_test_split(X_data,y_r, test_size = 0.2,random_state=69)
-X_train,X_test,y_train_g,y_test_g = train_test_split(X_data,y_g, test_size = 0.2,random_state=69)
-X_train,X_test,y_train_b,y_test_b = train_test_split(X_data,y_b, test_size = 0.2,random_state=69)
-
-
