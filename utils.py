@@ -26,5 +26,5 @@ def Preprocessing(img_path,img_size):
     img = cv2.imread(img_path)
     img = cv2.resize(img, img_size)
     
-    grayscaled = cv2.cvtColor(img, cv2.COLOR_BAYER_BG2GRAY)
+    grayscaled = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     return img,grayscaled
